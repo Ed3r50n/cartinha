@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Para Yasmin</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Lora:ital,wght@0,400;0,500;1,400&display=swap" rel="stylesheet">
+<style>
+/*
+VOICE: terno, íntimo, sem exagero
+IDEA: uma carta lacrada com selo de cera, entregue em mãos
+PICTURE: o envelope que abre e a carta que sobe de dentro
+COLOUR and TYPE: vinho profundo, rosa e um dourado suave; Great Vibes + Lora
+LAYOUT: uma tela, envelope centralizado; depois a carta rola sozinha
+*/
+:root{color-scheme:dark;--bg:#3a0d22;--bg2:#5c1636;--rose:#f2a7bf;--blush:#fde6ee;--gold:#e9c27a;--ink:#3b1626;--paper:#fffaf7}
+*{box-sizing:border-box;min-width:0;-webkit-tap-highlight-color:transparent}
+html,body{height:100%}
+body{margin:0;background:radial-gradient(120% 90% at 50% 20%,var(--bg2),var(--bg) 70%);color:var(--blush);font:17px/1.65 Lora,Georgia,serif;overflow-x:clip;min-height:100svh;padding:env(safe-area-inset-top) env(safe-area-inset-right) env(safe-area-inset-bottom) env(safe-area-inset-left)}
+#hearts{position:fixed;inset:0;pointer-events:none;overflow:hidden;z-index:0}
+.h{position:absolute;bottom:-40px;width:var(--s);height:var(--s);opacity:0;animation:up var(--d) linear var(--w) infinite}
+.h svg{width:100%;height:100%;fill:var(--rose)}
+@keyframes up{0%{transform:translate(0,0) rotate(0);opacity:0}10%{opacity:.7}100%{transform:translate(var(--x),-110vh) rotate(25deg);opacity:0}}
+main{position:relative;z-index:1;min-height:100svh;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:32px 18px 48px}
+.hint{font-style:italic;color:var(--rose);margin:22px 0 0;text-align:center;transition:opacity .4s}
+.stage{position:relative;width:min(88vw,360px);aspect-ratio:3/2;margin-top:40px;cursor:pointer;transition:margin .9s ease}
+.env{position:absolute;inset:0;background:linear-gradient(160deg,#f6c3d3,#e58aa8);border-radius:10px;box-shadow:0 24px 50px rgba(0,0,0,.4)}
+.pocket{position:absolute;inset:0;border-radius:10px;z-index:3;background:
+ linear-gradient(to top right,#eea0b9 50%,transparent 50.4%) left/50.2% 100% no-repeat,
+ linear-gradient(to top left,#eea0b9 50%,transparent 50.4%) right/50.2% 100% no-repeat}
+.flap{position:absolute;left:0;right:0;top:0;height:58%;z-index:4;transform-origin:top;transition:transform .7s ease,z-index 0s .35s}
+.flap::before{content:"";position:absolute;inset:0;background:linear-gradient(180deg,#f9cddb,#e993ae);clip-path:polygon(0 0,100% 0,50% 100%);border-radius:10px 10px 0 0}
+.seal{position:absolute;left:50%;top:58%;width:58px;height:58px;margin:-29px 0 0 -29px;border-radius:50%;z-index:5;background:radial-gradient(circle at 35% 30%,#c0395e,#8a1435 70%);box-shadow:0 4px 10px rgba(0,0,0,.35),inset 0 -3px 6px rgba(0,0,0,.25);display:grid;place-items:center;transition:opacity .3s,transform .3s}
+.seal svg{width:26px;fill:#f7c9d6}
+.stage:not(.open) .seal{animation:pulse 1.8s ease-in-out infinite}
+@keyframes pulse{50%{transform:scale(1.08)}}
+.peek{position:absolute;left:7%;right:7%;top:8%;bottom:8%;background:#fff url("nossa-foto.jpg") center/cover;border:5px solid #fff;border-radius:6px;z-index:2;transition:transform .9s ease .45s}
+.open .flap{transform:rotateX(180deg);z-index:1}
+.open .seal{opacity:0;transform:scale(.6)}
+.open .peek{transform:translateY(-45%)}
+.stage.gone{margin-top:0}
+.letter{position:relative;z-index:2;width:min(92vw,560px);background:var(--paper);color:var(--ink);border-radius:8px;padding:clamp(28px,6vw,48px) clamp(22px,6vw,48px) 40px;box-shadow:0 30px 70px rgba(0,0,0,.45);opacity:0;transform:translateY(40px);max-height:0;overflow:hidden;transition:opacity 1s ease,transform 1s ease}
+.letter.show{opacity:1;transform:none;max-height:none;margin-top:-60px}
+.letter h1{font:400 clamp(40px,11vw,56px)/1.05 "Great Vibes",cursive;color:#9b1f45;margin:0 0 18px;text-wrap:balance}
+.letter p{margin:0 0 16px}
+.letter .line{opacity:0;transform:translateY(8px);transition:opacity .8s ease,transform .8s ease}
+.letter .line.in{opacity:1;transform:none}
+.love{font-weight:500;text-align:center;font-size:20px;margin-top:24px!important;color:#9b1f45}
+.sign{font:400 34px/1.15 "Great Vibes",cursive;color:#9b1f45;text-align:right;margin-top:26px}
+.ask{margin:30px 0 0;padding-top:22px;border-top:1px solid #f0d4dd;text-align:center}
+.ask p{font-style:italic}
+.btns{display:flex;gap:12px;justify-content:center;flex-wrap:wrap}
+button{font:500 16px Lora,serif;min-height:46px;padding:0 24px;border-radius:999px;border:0;cursor:pointer}
+.yes{background:#b02a55;color:#fff;box-shadow:0 6px 16px rgba(176,42,85,.35)}
+.also{background:#fbe3ea;color:#8a1435}
+button:focus-visible{outline:3px solid var(--gold);outline-offset:3px}
+.answer{font:400 30px/1.2 "Great Vibes",cursive;color:#b02a55;min-height:40px;margin:16px 0 0}
+@media (prefers-reduced-motion:reduce){.h{display:none}*{transition-duration:.01s!important;animation:none!important}}
+</style>
+</head>
+<body>
+<div id="hearts" aria-hidden="true"></div>
+<main>
+  <div class="stage" id="stage" role="button" tabindex="0" aria-label="Abrir a carta">
+    <div class="env"></div>
+    <div class="peek"></div>
+    <div class="pocket"></div>
+    <div class="flap"></div>
+    <div class="seal"><svg viewBox="0 0 24 24"><path d="M12 21s-7.5-4.6-9.6-9.3C.9 8.2 3 4.5 6.6 4.5c2.1 0 3.9 1.3 5.4 3.2 1.5-1.9 3.3-3.2 5.4-3.2 3.6 0 5.7 3.7 4.2 7.2C19.5 16.4 12 21 12 21z"/></svg></div>
+  </div>
+  <p class="hint" id="hint">Toque no envelope, Yasmin</p>
+
+  <article class="letter" id="letter">
+    <h1 class="line">Meu amor,</h1>
+    <p class="line">Quero que você saiba o quanto eu sou feliz por ter você na minha vida. Você deixa os meus dias mais felizes. Quando estou com você, tudo fica mais tranquilo: o seu cheiro, o seu amor, a sua presença… você me faz ser uma pessoa melhor. E eu amo ser o seu namorado.</p>
+    <p class="line">Confesso que ficar longe de você doeu demais, mas nós sabemos que foi necessário. E hoje… hoje eu quero, desejo, rezo e sei que vamos fazer de tudo para que a nossa história seja diferente.</p>
+    <p class="line love">Te amo muito!!</p>
+    <div class="sign line">Com amor,<br>do seu namorado,<br>Julian</div>
+    <div class="ask line">
+      <p>E aí, aceita continuar sendo o meu amor?</p>
+      <div class="btns">
+        <button class="yes" id="yes">Sim</button>
+        <button class="also" id="also">Claro que sim</button>
+      </div>
+      <div class="answer" id="answer" aria-live="polite"></div>
+    </div>
+  </article>
+</main>
+<script>
+{
+const heart='<svg viewBox="0 0 24 24"><path d="M12 21s-7.5-4.6-9.6-9.3C.9 8.2 3 4.5 6.6 4.5c2.1 0 3.9 1.3 5.4 3.2 1.5-1.9 3.3-3.2 5.4-3.2 3.6 0 5.7 3.7 4.2 7.2C19.5 16.4 12 21 12 21z"/></svg>';
+const box=document.getElementById('hearts');
+const spawn=(n,fast)=>{let html='';for(let i=0;i<n;i++){const s=10+Math.random()*22,d=(fast?4:9)+Math.random()*6,w=Math.random()*(fast?1.5:9),x=(Math.random()*80-40)+'px';html+=`<span class="h" style="left:${Math.random()*100}%;--s:${s}px;--d:${d}s;--w:${w}s;--x:${x}">${heart}</span>`}box.insertAdjacentHTML('beforeend',html)};
+spawn(16,false);
+const stage=document.getElementById('stage'),letter=document.getElementById('letter'),hint=document.getElementById('hint');
+let opened=false;
+const open=()=>{if(opened)return;opened=true;stage.classList.add('open');hint.style.opacity=0;
+ setTimeout(()=>{letter.classList.add('show');stage.classList.add('gone');
+  const lines=[...letter.querySelectorAll('.line')];
+  lines.forEach((l,i)=>setTimeout(()=>l.classList.add('in'),300+i*700));
+  setTimeout(()=>letter.scrollIntoView({behavior:'smooth',block:'start'}),500);
+ },1300)};
+stage.addEventListener('click',open);
+stage.addEventListener('keydown',e=>{if(e.key==='Enter'||e.key===' '){e.preventDefault();open()}});
+const ans=document.getElementById('answer');
+const yes=()=>{ans.textContent='Eu sabia! Te amo ♥';spawn(30,true)};
+document.getElementById('yes').addEventListener('click',yes);
+document.getElementById('also').addEventListener('click',yes);
+}
+</script>
+</body>
+</html>
